@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+echo " Directory of $(pwd)\n"
+
+# Use GNU ls with custom time format
+ls -l --time-style=+"%Y/%m/%d %I:%M %p" | tail -n +2 | while read perms links owner group size date time ampm name; do
+    case "$perms" in
+        d*) echo "$date $time $ampm   <DIR>       $name" ;;
+        *)  echo "$date $time $ampm        $size $name" ;;
+    esac
+done
+
