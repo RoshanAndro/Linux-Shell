@@ -1,9 +1,17 @@
-echo " Directory of $(pwd)\n"
-
-ls -l --time-style=+"%Y/%m/%d %I:%M %p" | tail -n +2 | while read perms links owner group size date time ampm name; do
-    case "$perms" in
-        d*) echo "$date $time $ampm   <DIR>       $name" ;;
-        *)  echo "$date $time $ampm        $size $name" ;;
-    esac
+if [ $# -ne 0 ]
+then
+echo "Syntax error"
+exit 1
+fi
+echo "\n\n Directory of `pwd`\n"
+for f in *
+do
+fdatetime=`date -r $f "+%d-%m-%Y %H : %M : %S"`
+if [ -d $f ]
+then
+echo "$f\t\t<DIR>\T $fdatetime"
+else
+f_size=`cat $f | wc -c`
+echo " $f \t\t $f_size\t $fdatetime"
+fi
 done
-
