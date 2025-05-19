@@ -1,12 +1,19 @@
-if [ $# -ne 1 ]; then
-echo "syntax is $0 <directory location>"
-exit 1
+
+#set -vx
+
+if [ $# -gt 1 ]; then
+  printf "\nSyntax: $0 [directory_location]\n"
+  exit 1
 fi
-cd $1
-for file in *  
-do
-if [ -f $file  ]; then
-mv $file $$$file
+
+if [ $# -ne 0 ]; then
+  cd "$1" || { echo "Cannot change to directory: $1"; exit 1; }
 fi
+
+for i in *; do
+  if [ -f "$i" ]; then
+    mv "$i" "$i.$$"
+  fi
 done
-cd ..
+
+echo "Filenames changed to filename.$$"
